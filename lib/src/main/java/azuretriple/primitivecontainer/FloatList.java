@@ -33,10 +33,27 @@ public interface FloatList extends FloatContainer
     
     /** Appends the values in the argument to the end of the list. */
     default void add(final float[] v) {((List)this).add(v);}
+    /**
+     * Appends the values in the argument to the end of the list.
+     *
+     * @param start Starting position in the array.
+     * @param length Number of elements to copy.
+     */
+    default void add(final float[] v,final int start,final int length) {((List)this).add(v,start,length);}
     /** Appends the argument to the end of the list. */
     default void add(final float v) {((List)this).addLogic(); data()[((List)this).size++] = v;}
     /** Inserts the specified values immediately before the specified location. */
     default void insert(final int location,final float[] v) {((List)this).insert(location,v);}
+    /**
+     * Inserts the specified values immediately before the specified location.
+     *
+     * @param start Starting position in the array.
+     * @param length Number of elements to copy.
+     */
+    default void insert(final int location,final float[] v,final int start,final int length)
+    {
+        ((List)this).insert(location,v,start,length);
+    }
     /** Inserts the specified value immediately before the specified location. */
     default void insert(final int location,final float v) {((List)this).insertLogic(location); data()[location] = v;}
     /** Removes the last value from the list. */

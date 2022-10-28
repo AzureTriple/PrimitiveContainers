@@ -18,6 +18,13 @@ public interface ByteQueue extends ByteContainer
     
     /** Appends the values in the argument to the queue. */
     default void push(final byte[] v) {((Queue)this).push(v);}
+    /**
+     * Appends the values in the argument to the queue.
+     *
+     * @param start Starting position in the array.
+     * @param length Number of elements to copy.
+     */
+    default void push(final byte[] v,final int start,final int length) {((Queue)this).push(v,start,length);}
     /** Appends the value to the queue. */
     default void push(final byte v) {((Queue)this).pushLogic(); data()[((Queue)this).end++] = v;}
     /** Removes the value at the front of the queue. */

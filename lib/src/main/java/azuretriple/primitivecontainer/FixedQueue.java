@@ -7,7 +7,8 @@ import static java.lang.reflect.Array.getLength;
 @SuppressWarnings("SuspiciousSystemArraycopy")
 public abstract class FixedQueue extends Queue
 {
-    boolean empty;
+    /** The current state of this queue. Exercise caution when modifying this variable. */
+    public boolean empty;
     
     FixedQueue(final Object arr,final int start,final int end,final boolean empty)
     {
@@ -34,6 +35,15 @@ public abstract class FixedQueue extends Queue
         arraycopy(v,0,arr,end = empty? 0 : rearrange(arr,start,end),vl);
         start = 0;
         end += vl;
+        empty = false;
+    }
+    @Override
+    void push(final Object v,final int start,final int length)
+    {
+        if(length == 0) return;
+        arraycopy(v,start,arr,end = empty? 0 : rearrange(arr,this.start,end),length);
+        this.start = 0;
+        end += length;
         empty = false;
     }
     @Override

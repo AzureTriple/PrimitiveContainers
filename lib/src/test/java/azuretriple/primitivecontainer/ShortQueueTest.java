@@ -36,6 +36,15 @@ class ShortQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedShortQueue q = new FixedShortQueue(4);
+        q.push((short)0);
+        q.push(new short[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new short[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedShortQueue q = new FixedShortQueue(new short[] {1},0,1,false);

@@ -84,11 +84,34 @@ class IntListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedIntList l = new FixedIntList(4);
+        l.add(new int[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add(3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new int[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedIntList l = new FixedIntList(4);
         l.add(3);
         l.insert(0,new int[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new int[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedIntList l = new FixedIntList(4);
+        l.add(3);
+        l.insert(0,new int[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,0);
         assertEquals(4,l.size);

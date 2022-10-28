@@ -75,6 +75,20 @@ class FixedQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedByteQueue q = new FixedByteQueue(4);
+        q.push(new byte[] {-1,-1},1,0);
+        assertTrue(q.empty());
+        q.push(new byte[] {-1,1,2,-1},1,2);
+        assertArrayEquals(new byte[] {1,2,0,0},q.data());
+        assertEquals(2,q.size());
+        q.push(new byte[] {-1,3,4,-1},1,2);
+        assertArrayEquals(new byte[] {1,2,3,4},q.data());
+        assertEquals(4,q.size());
+    }
+    
+    @Test
     void testPushLogic()
     {
         final Class<?>[] pair = AssertionUtil.getAssertionPair(FixedByteQueue.class);

@@ -32,6 +32,55 @@ public record ShortSet(OrderedShortList data) implements Cloneable
     /** @return {@code true} iff the value exists in the set. */
     public boolean contains(final short v) {return data.find(v) < 0;}
     
+    /** Adds all elements not present in this set from the argument. */
+    public void union(final ShortSet other)
+    {
+        final ShortList a = data.list;
+        final short[] b = other.data.list.data();
+        final int bl = other.data.list.size();
+        int bi = 0;
+        for(int ai = 0;ai < a.size() && bi < bl;++ai)
+            if(a.data()[ai] >= b[bi])
+            {
+                if(a.data()[ai] > b[bi]) a.insert(ai,b[bi]);
+                ++bi;
+            }
+        a.add(b,bi,bl-bi);
+    }
+    /** Removes all elements in this set not present in the argument. */
+    public void intersect(final ShortSet other)
+    {
+        final short[] a = data.list.data(),b = other.data.list.data();
+        final int al = data.list.size(),bl = other.data.list.size();
+        int ai = 0;
+        {
+            final int min = Math.min(al,bl);
+            while(ai < min && a[ai] == b[ai]) ++ai;
+        }
+        int bi = ai,ci = ai;
+        while(ai < al && bi < bl)
+            if(a[ai] < b[bi]) ++ai;
+            else
+            {
+                if(a[ai] == b[bi]) a[ci++] = a[ai++];
+                ++bi;
+            }
+        ((List)data.list).size = ci;
+    }
+    /** Removes all elements in this set present in the other set. */
+    public void subtract(final ShortSet other)
+    {
+        final short[] a = data.list.data(),b = other.data.list.data();
+        final int al = data.list.size(),bl = other.data.list.size();
+        int ai = 0,bi = 0,ci = 0;
+        while(ai < al && bi < bl)
+            if(a[ai] == b[bi]) {++ai; ++bi;}
+            else if(a[ai] < b[bi]) a[ci++] = a[ai++];
+            else ++bi;
+        System.arraycopy(a,ai,a,ci,al-ai);
+        ((List)data.list).size = ci;
+    }
+    
     @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override public ShortSet clone() {return new ShortSet(this);}
 }

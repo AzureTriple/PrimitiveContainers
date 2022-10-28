@@ -7,7 +7,8 @@ public abstract class Container implements PrimitiveContainer
 {
     static Object arrInst(final Object arr,final int size) {return newInstance(arr.getClass().componentType(),size);}
     
-    Object arr;
+    /** The backing array for this container. Exercise caution when modifying this variable. */
+    public Object arr;
     
     Container(final Object arr) {this.arr = arr; assert arr != null;}
     

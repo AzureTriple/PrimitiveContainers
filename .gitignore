@@ -34,3 +34,6 @@ build
 
 # Ignore Intellij files
 /.idea/
+
+# Ignore build output
+/out/

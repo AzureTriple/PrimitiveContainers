@@ -82,11 +82,34 @@ class ShortListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedShortList l = new FixedShortList(4);
+        l.add(new short[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add((short)3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new short[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedShortList l = new FixedShortList(4);
         l.add((short)3);
         l.insert(0,new short[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,(short)0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new short[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedShortList l = new FixedShortList(4);
+        l.add((short)3);
+        l.insert(0,new short[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,(short)0);
         assertEquals(4,l.size);

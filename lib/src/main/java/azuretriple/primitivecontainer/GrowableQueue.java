@@ -10,7 +10,8 @@ public abstract class GrowableQueue extends Queue
     /** Constant representing this queue's current state. */
     public static final byte EMPTY = 0,NORMAL = 1,FULL = 2;
     
-    byte state;
+    /** The current state of this queue. Exercise caution when modifying this variable. */
+    public byte state;
     
     GrowableQueue(final Object arr,final int start,final int end,final byte state)
     {
@@ -79,6 +80,34 @@ public abstract class GrowableQueue extends Queue
         }
         arraycopy(v,0,arr,end,vl);
         end += vl;
+    }
+    @Override
+    void push(final Object v,final int start,final int length)
+    {
+        if(length == 0) return;
+        {
+            final int ql = getLength(arr);
+            final Object nq;
+            final int r = size();
+            if(ql - r == length)
+            {
+                state = FULL;
+                nq = arr;
+            }
+            else
+            {
+                state = NORMAL;
+                final byte n = Growable.nextPow2(length,r,ql);
+                nq = n != 0? arrInst(arr,ql << n) : arr;
+            }
+            // Always re-order the existing data to avoid needing to check for the case where the
+            // input wraps around. This also has the benefit of making future operations more
+            // efficient until a series of push/pop operations makes the queue wrap around again.
+            end = rearrange(arr,arr = nq,this.start,end);
+            this.start = 0;
+        }
+        arraycopy(v,start,arr,end,length);
+        end += length;
     }
     @Override
     void pushLogic()

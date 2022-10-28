@@ -19,6 +19,16 @@ class FixedListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedByteList l = new FixedByteList(new byte[3],0);
+        ((FixedList)l).add(new byte[] {-1,1,-1},1,1);
+        ((FixedList)l).add(new byte[] {-1,2,3},1,2);
+        assertArrayEquals(new byte[] {1,2,3},l.data());
+        assertEquals(3,l.size());
+    }
+    
+    @Test
     void testAddLogic()
     {
         // Dummy call to satisfy the coverage report for empty function.
@@ -31,6 +41,16 @@ class FixedListTest
         final FixedByteList l = new FixedByteList(new byte[4],0);
         l.insert(0,new byte[] {0,3});
         l.insert(1,new byte[] {1,2});
+        assertArrayEquals(new byte[] {0,1,2,3},l.data());
+        assertEquals(4,l.size());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedByteList l = new FixedByteList(new byte[4],0);
+        l.insert(0,new byte[] {-1,0,3,-1},1,2);
+        l.insert(1,new byte[] {-1,1,2,-1},1,2);
         assertArrayEquals(new byte[] {0,1,2,3},l.data());
         assertEquals(4,l.size());
     }

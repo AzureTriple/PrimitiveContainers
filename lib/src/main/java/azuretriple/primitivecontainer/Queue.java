@@ -49,7 +49,8 @@ public abstract class Queue extends Container
         return e;
     }
     
-    int start,end;
+    /** Index pointer for this queue. Exercise caution when modifying this variable. */
+    public int start,end;
     
     Queue(final Object arr,final int start,final int end)
     {
@@ -70,6 +71,7 @@ public abstract class Queue extends Container
     public int offset(final int idx) {return (start+idx)%getLength(arr);}
     
     abstract void push(final Object arr);
+    abstract void push(final Object arr,final int start,final int length);
     abstract void pushLogic();
     public abstract void delete();
     

@@ -82,11 +82,34 @@ class ByteListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedByteList l = new FixedByteList(4);
+        l.add(new byte[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add((byte)3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new byte[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedByteList l = new FixedByteList(4);
         l.add((byte)3);
         l.insert(0,new byte[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,(byte)0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new byte[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedByteList l = new FixedByteList(4);
+        l.add((byte)3);
+        l.insert(0,new byte[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,(byte)0);
         assertEquals(4,l.size);

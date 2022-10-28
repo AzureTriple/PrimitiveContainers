@@ -11,7 +11,8 @@ import static java.lang.reflect.Array.getLength;
 @SuppressWarnings("SuspiciousSystemArraycopy")
 public abstract class List extends Container
 {
-    int size;
+    /** The current size of this list. */
+    public int size;
     
     List(final Object arr,final int size) {super(arr); this.size = size; assert getLength(arr) >= size;}
     List(final List other)
@@ -25,8 +26,10 @@ public abstract class List extends Container
     @Override public void clear() {size = 0;}
     
     abstract void add(final Object v);
+    abstract void add(final Object v,final int start,final int length);
     abstract void addLogic();
     abstract void insert(final int location,final Object v);
+    abstract void insert(final int location,final Object v,final int start,final int length);
     abstract void insertLogic(final int location);
     public void delete() {assert size > 0; --size;}
     public abstract void remove(final int location);

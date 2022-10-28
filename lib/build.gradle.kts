@@ -8,7 +8,10 @@ repositories {
     mavenCentral()
 }
 
-java {withSourcesJar()}
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
 tasks {
     test {useJUnitPlatform()}
@@ -16,6 +19,18 @@ tasks {
         manifest {attributes(mapOf("PrimitiveContainer" to rootProject.name))}
         archiveBaseName.set(rootProject.name)
     }
+    withType<Javadoc> {
+        (options as StandardJavadocDocletOptions).tags(
+            "apiNote:a:API Note:",
+            "implSpec:a:Implementation Requirements:",
+            "implNote:a:Implementation Note:"
+        )
+    }
+}
+tasks.register<AbstractCompile>("release") {
+    dependsOn(tasks.withType<Test>(),tasks.withType<Jar>(),tasks.withType<Javadoc>())
+    description = "Builds release artifacts"
+    group = "build"
 }
 
 dependencies {

@@ -36,6 +36,15 @@ class LongQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedLongQueue q = new FixedLongQueue(4);
+        q.push(0);
+        q.push(new long[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new long[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedLongQueue q = new FixedLongQueue(new long[] {1},0,1,false);

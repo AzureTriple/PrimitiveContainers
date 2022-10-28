@@ -82,11 +82,34 @@ class DoubleListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedDoubleList l = new FixedDoubleList(4);
+        l.add(new double[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add(3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new double[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedDoubleList l = new FixedDoubleList(4);
         l.add(3);
         l.insert(0,new double[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new double[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedDoubleList l = new FixedDoubleList(4);
+        l.add(3);
+        l.insert(0,new double[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,0);
         assertEquals(4,l.size);

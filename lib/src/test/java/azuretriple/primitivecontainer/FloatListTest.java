@@ -84,11 +84,34 @@ class FloatListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedFloatList l = new FixedFloatList(4);
+        l.add(new float[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add((float)3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new float[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedFloatList l = new FixedFloatList(4);
         l.add((float)3);
         l.insert(0,new float[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,(float)0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new float[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedFloatList l = new FixedFloatList(4);
+        l.add((float)3);
+        l.insert(0,new float[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,(float)0);
         assertEquals(4,l.size);

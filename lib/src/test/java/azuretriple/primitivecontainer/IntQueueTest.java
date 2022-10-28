@@ -36,6 +36,15 @@ class IntQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedIntQueue q = new FixedIntQueue(4);
+        q.push(0);
+        q.push(new int[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new int[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedIntQueue q = new FixedIntQueue(new int[] {1},0,1,false);

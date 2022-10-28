@@ -17,6 +17,12 @@ public abstract class FixedList extends List
         arraycopy(v,0,arr,size,vl);
         size += vl;
     }
+    @Override
+    void add(final Object v,final int start,final int length)
+    {
+        arraycopy(v,start,arr,size,length);
+        size += length;
+    }
     @Override void addLogic() {}
     @Override
     void insert(final int location,final Object v)
@@ -25,6 +31,13 @@ public abstract class FixedList extends List
         arraycopy(arr,location,arr,location+vl,size-location);
         arraycopy(v,0,arr,location,vl);
         size += vl;
+    }
+    @Override
+    void insert(final int location,final Object v,final int start,final int length)
+    {
+        arraycopy(arr,location,arr,location+length,size-location);
+        arraycopy(v,start,arr,location,length);
+        size += length;
     }
     @Override void insertLogic(final int location) {arraycopy(arr,location,arr,location+1,(size++)-location);}
     @Override public void remove(final int location) {arraycopy(arr,location+1,arr,location,(--size)-location);}

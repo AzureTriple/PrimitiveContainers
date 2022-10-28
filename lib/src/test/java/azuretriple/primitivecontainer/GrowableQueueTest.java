@@ -114,6 +114,24 @@ class GrowableQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final GrowableByteQueue q = new GrowableByteQueue(1);
+        q.push(new byte[] {-1,-1},1,0);
+        assertTrue(q.empty());
+        q.push(new byte[] {-1,1,-1},1,1);
+        assertArrayEquals(new byte[] {1},q.data());
+        Assertions.assertEquals(GrowableQueue.FULL,q.state);
+        q.push(new byte[] {-1,2,3,-1},1,2);
+        assertArrayEquals(new byte[] {1,2,3,0},q.data());
+        Assertions.assertEquals(GrowableQueue.NORMAL,q.state);
+        q.clear();
+        q.push(new byte[] {-1,1,2,-1},1,2);
+        assertArrayEquals(new byte[] {1,2,3,0},q.data());
+        Assertions.assertEquals(GrowableQueue.NORMAL,q.state);
+    }
+    
+    @Test
     void testPushLogic()
     {
         final GrowableByteQueue q = new GrowableByteQueue(2);

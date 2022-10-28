@@ -36,6 +36,15 @@ class FloatQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedFloatQueue q = new FixedFloatQueue(4);
+        q.push((float)0);
+        q.push(new float[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new float[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedFloatQueue q = new FixedFloatQueue(new float[] {1},0,1,false);

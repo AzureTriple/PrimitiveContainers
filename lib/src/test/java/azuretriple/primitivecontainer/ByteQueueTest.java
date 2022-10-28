@@ -36,6 +36,15 @@ class ByteQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedByteQueue q = new FixedByteQueue(4);
+        q.push((byte)0);
+        q.push(new byte[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new byte[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedByteQueue q = new FixedByteQueue(new byte[] {1},0,1,false);

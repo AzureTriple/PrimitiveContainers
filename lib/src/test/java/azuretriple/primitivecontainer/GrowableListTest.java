@@ -31,6 +31,20 @@ class GrowableListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final GrowableByteList l = new GrowableByteList(4);
+        l.add(new byte[] {-1,-1},1,0);
+        assertTrue(l.empty());
+        l.add(new byte[] {-1,0,1,2,3,4,-1},1,5);
+        assertEquals(5,l.size());
+        assertArrayEquals(new byte[] {0,1,2,3,4,0,0,0},l.data());
+        l.add(new byte[] {-1,5,6,-1},1,2);
+        assertEquals(7,l.size());
+        assertArrayEquals(new byte[] {0,1,2,3,4,5,6,0},l.data());
+    }
+    
+    @Test
     void testAddLogic()
     {
         final GrowableByteList l = new GrowableByteList(new byte[1],1);
@@ -51,6 +65,21 @@ class GrowableListTest
         assertEquals(5,l.size());
         assertArrayEquals(new byte[] {0,1,2,3,5,0,0,0},l.data());
         l.insert(4,new byte[] {4});
+        assertEquals(6,l.size());
+        assertArrayEquals(new byte[] {0,1,2,3,4,5,0,0},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final GrowableByteList l = new GrowableByteList(new byte[] {0,5},2);
+        l.insert(1,new byte[] {-1,-1},1,0);
+        assertEquals(2,l.size());
+        assertArrayEquals(new byte[] {0,5},l.data());
+        l.insert(1,new byte[] {-1,1,2,3,-1},1,3);
+        assertEquals(5,l.size());
+        assertArrayEquals(new byte[] {0,1,2,3,5,0,0,0},l.data());
+        l.insert(4,new byte[] {4},0,1);
         assertEquals(6,l.size());
         assertArrayEquals(new byte[] {0,1,2,3,4,5,0,0},l.data());
     }

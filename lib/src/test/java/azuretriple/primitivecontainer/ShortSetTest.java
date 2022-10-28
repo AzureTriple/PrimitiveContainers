@@ -43,6 +43,102 @@ class ShortSetTest
     }
     
     @Test
+    void testUnion()
+    {
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(3))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(2)));
+            a.add((short)1);
+            a.add((short)3);
+            b.add((short)1);
+            b.add((short)2);
+            a.union(b);
+            assertArrayEquals(new short[] {1,2,3},a.data().data().data());
+            assertEquals(3,a.data().data().size());
+        }
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(4))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(3)));
+            a.add((short)1);
+            a.add((short)2);
+            b.add((short)1);
+            b.add((short)3);
+            b.add((short)4);
+            a.union(b);
+            assertArrayEquals(new short[] {1,2,3,4},a.data().data().data());
+            assertEquals(4,a.data().data().size());
+        }
+    }
+    
+    @Test
+    void testIntersect()
+    {
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(2))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(2)));
+            a.add((short)1);
+            a.add((short)2);
+            b.add((short)1);
+            b.add((short)2);
+            a.intersect(b);
+            assertArrayEquals(new short[] {1,2},a.data().data().data());
+            assertEquals(2,a.data().data().size());
+        }
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(2))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(2)));
+            a.add((short)1);
+            a.add((short)3);
+            b.add((short)2);
+            b.add((short)3);
+            a.intersect(b);
+            assertArrayEquals(new short[] {3,3},a.data().data().data());
+            assertEquals(1,a.data().data().size());
+        }
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(3))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(2)));
+            a.add((short)1);
+            a.add((short)3);
+            a.add((short)4);
+            b.add((short)2);
+            b.add((short)3);
+            a.intersect(b);
+            assertArrayEquals(new short[] {3,3,4},a.data().data().data());
+            assertEquals(1,a.data().data().size());
+        }
+    }
+    
+    @Test
+    void testSubtract()
+    {
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(3))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(2)));
+            a.add((short)1);
+            a.add((short)2);
+            a.add((short)4);
+            b.add((short)2);
+            b.add((short)3);
+            a.subtract(b);
+            assertArrayEquals(new short[] {1,4,4},a.data().data().data());
+            assertEquals(1,a.data().data().size());
+        }
+        {
+            final ShortSet a = new ShortSet(new OrderedShortList(new FixedShortList(2))),
+                           b = new ShortSet(new OrderedShortList(new FixedShortList(3)));
+            a.add((short)1);
+            a.add((short)2);
+            b.add((short)2);
+            b.add((short)3);
+            b.add((short)4);
+            a.subtract(b);
+            assertArrayEquals(new short[] {1,2},a.data().data().data());
+            assertEquals(1,a.data().data().size());
+        }
+    }
+    
+    @Test
     void testClone()
     {
     

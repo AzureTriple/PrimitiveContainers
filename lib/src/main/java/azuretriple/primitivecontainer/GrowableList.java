@@ -24,13 +24,23 @@ public abstract class GrowableList extends List
         if(vl == 0) return;
         {
             final int ll = getLength(arr);
-            {
-                final byte n = Growable.nextPow2(vl,size,ll);
-                if(n != (byte)0) arraycopy(arr,0,arr = arrInst(arr,ll << n),0,size);
-            }
+            final byte n = Growable.nextPow2(vl,size,ll);
+            if(n != (byte)0) arraycopy(arr,0,arr = arrInst(arr,ll << n),0,size);
         }
         arraycopy(v,0,arr,size,vl);
         size += vl;
+    }
+    @Override
+    void add(final Object v,final int start,final int length)
+    {
+        if(length == 0) return;
+        {
+            final int ll = getLength(arr);
+            final byte n = Growable.nextPow2(length,size,ll);
+            if(n != (byte)0) arraycopy(arr,0,arr = arrInst(arr,ll << n),0,size);
+        }
+        arraycopy(v,start,arr,size,length);
+        size += length;
     }
     @Override
     void addLogic()
@@ -57,6 +67,25 @@ public abstract class GrowableList extends List
         }
         arraycopy(v,0,arr,location,vl);
         size += vl;
+    }
+    @Override
+    void insert(final int location,final Object v,final int start,final int length)
+    {
+        if(length == 0) return;
+        final int ll = getLength(arr);
+        {
+            final byte n = Growable.nextPow2(length,size,ll);
+            if(n != (byte)0)
+            {
+                final Object next = arrInst(arr,ll << n);
+                arraycopy(arr,0,next,0,location);
+                arraycopy(arr,location,arr = next,location+length,size-location);
+            }
+            else
+                arraycopy(arr,location,arr,location+length,size-location);
+        }
+        arraycopy(v,start,arr,location,length);
+        size += length;
     }
     @Override
     void insertLogic(final int location)

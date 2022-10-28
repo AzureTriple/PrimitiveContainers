@@ -36,6 +36,15 @@ class DoubleQueueTest
     }
     
     @Test
+    void testPushRange()
+    {
+        final FixedDoubleQueue q = new FixedDoubleQueue(4);
+        q.push(0);
+        q.push(new double[] {-1,1,2,3,-1},1,3);
+        assertArrayEquals(new double[] {0,1,2,3},q.data());
+    }
+    
+    @Test
     void testPop()
     {
         final FixedDoubleQueue q = new FixedDoubleQueue(new double[] {1},0,1,false);

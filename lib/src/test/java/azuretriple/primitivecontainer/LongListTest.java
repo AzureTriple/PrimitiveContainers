@@ -82,11 +82,34 @@ class LongListTest
     }
     
     @Test
+    void testAddRange()
+    {
+        final FixedLongList l = new FixedLongList(4);
+        l.add(new long[] {-1,0,1,2,-1},1,3);
+        assertEquals(3,l.size);
+        l.add(3);
+        assertEquals(4,l.size);
+        assertArrayEquals(new long[] {0,1,2,3},l.data());
+    }
+    
+    @Test
     void testInsert()
     {
         final FixedLongList l = new FixedLongList(4);
         l.add(3);
         l.insert(0,new long[] {1,2});
+        assertEquals(3,l.size);
+        l.insert(0,0);
+        assertEquals(4,l.size);
+        assertArrayEquals(new long[] {0,1,2,3},l.data());
+    }
+    
+    @Test
+    void testInsertRange()
+    {
+        final FixedLongList l = new FixedLongList(4);
+        l.add(3);
+        l.insert(0,new long[] {-1,1,2,-1},1,2);
         assertEquals(3,l.size);
         l.insert(0,0);
         assertEquals(4,l.size);
