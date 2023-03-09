@@ -66,4 +66,12 @@ class GrowableLongListTest
         final GrowableLongList l = new GrowableLongList(new long[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableLongList l = new GrowableLongList(16);
+        l.add(1L);
+        assertEquals(1L,l.pop());
+    }
 }

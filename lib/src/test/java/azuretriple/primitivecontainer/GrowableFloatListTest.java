@@ -66,4 +66,12 @@ class GrowableFloatListTest
         final GrowableFloatList l = new GrowableFloatList(new float[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableFloatList l = new GrowableFloatList(16);
+        l.add(1.F);
+        assertEquals(1.F,l.pop());
+    }
 }

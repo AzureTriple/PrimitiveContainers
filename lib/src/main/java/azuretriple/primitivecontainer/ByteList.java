@@ -61,7 +61,7 @@ public interface ByteList extends ByteContainer
     /** Removes the value at the specified location from the list. */
     void remove(final int location);
     /** Removes and returns the last value from the list. */
-    default byte pop() {delete(); return data()[((List)this).size];}
+    default byte pop() {final byte out = data()[((List)this).size-1]; delete(); return out;}
     /** Removes and returns the value at the specified location from the list. */
     default byte extract(final int location) {final byte o = data()[location]; remove(location); return o;}
     

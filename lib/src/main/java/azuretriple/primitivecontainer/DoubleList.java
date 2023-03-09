@@ -61,7 +61,7 @@ public interface DoubleList extends DoubleContainer
     /** Removes the value at the specified location from the list. */
     void remove(final int location);
     /** Removes and returns the last value from the list. */
-    default double pop() {delete(); return data()[((List)this).size];}
+    default double pop() {final double out = data()[((List)this).size-1]; delete(); return out;}
     /** Removes and returns the value at the specified location from the list. */
     default double extract(final int location) {final double o = data()[location]; remove(location); return o;}
     

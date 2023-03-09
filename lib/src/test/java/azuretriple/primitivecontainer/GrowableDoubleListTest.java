@@ -66,4 +66,12 @@ class GrowableDoubleListTest
         final GrowableDoubleList l = new GrowableDoubleList(new double[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableDoubleList l = new GrowableDoubleList(16);
+        l.add(1.D);
+        assertEquals(1.D,l.pop());
+    }
 }

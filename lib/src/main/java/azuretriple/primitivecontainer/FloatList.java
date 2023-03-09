@@ -61,7 +61,7 @@ public interface FloatList extends FloatContainer
     /** Removes the value at the specified location from the list. */
     void remove(final int location);
     /** Removes and returns the last value from the list. */
-    default float pop() {delete(); return data()[((List)this).size];}
+    default float pop() {final float out = data()[((List)this).size-1]; delete(); return out;}
     /** Removes and returns the value at the specified location from the list. */
     default float extract(final int location) {final float o = data()[location]; remove(location); return o;}
     

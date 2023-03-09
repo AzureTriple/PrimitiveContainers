@@ -66,4 +66,12 @@ class GrowableShortListTest
         final GrowableShortList l = new GrowableShortList(new short[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableShortList l = new GrowableShortList(16);
+        l.add((short)1);
+        assertEquals((short)1,l.pop());
+    }
 }

@@ -66,4 +66,12 @@ class GrowableByteListTest
         final GrowableByteList l = new GrowableByteList(new byte[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableByteList l = new GrowableByteList(16);
+        l.add((byte)1);
+        assertEquals((byte)1,l.pop());
+    }
 }

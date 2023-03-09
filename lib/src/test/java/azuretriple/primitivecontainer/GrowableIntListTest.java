@@ -66,4 +66,12 @@ class GrowableIntListTest
         final GrowableIntList l = new GrowableIntList(new int[] {0,1,2,3},2);
         assertEquals(l,l.clone());
     }
+    
+    @Test
+    void testPop()
+    {
+        final GrowableIntList l = new GrowableIntList(16);
+        l.add(1);
+        assertEquals(1,l.pop());
+    }
 }

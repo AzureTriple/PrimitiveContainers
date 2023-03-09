@@ -61,7 +61,7 @@ public interface LongList extends LongContainer
     /** Removes the value at the specified location from the list. */
     void remove(final int location);
     /** Removes and returns the last value from the list. */
-    default long pop() {delete(); return data()[((List)this).size];}
+    default long pop() {final long out = data()[((List)this).size-1]; delete(); return out;}
     /** Removes and returns the value at the specified location from the list. */
     default long extract(final int location) {final long o = data()[location]; remove(location); return o;}
     
